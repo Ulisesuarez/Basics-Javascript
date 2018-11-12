@@ -24,7 +24,12 @@
 
 var q = {};
 
-Object.defineProperty(o, "extends",  { value: function (p) {
+Object.defineProperty(q, "extend",  { value: function (p) {
+    let properties=Object.getOwnPropertyNames(p)
+    for (let property in properties){
+        let descriptor=Object.getOwnPropertyDescriptor(p,properties[property])
+        Object.defineProperty(this, properties[property], descriptor)
+    }
         
     }, writable: false, enumerable:false, configurable:false });
 

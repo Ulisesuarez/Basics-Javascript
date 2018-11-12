@@ -27,8 +27,10 @@ var q = {};
 Object.defineProperty(q, "extend",  { value: function (p) {
     let properties=Object.getOwnPropertyNames(p)
     for (let property in properties){
-        let descriptor=Object.getOwnPropertyDescriptor(p,properties[property])
-        Object.defineProperty(this, properties[property], descriptor)
+        if(!Object.getOwnPropertyNames(this).includes(properties[property])) {
+            let descriptor = Object.getOwnPropertyDescriptor(p, properties[property])
+            Object.defineProperty(this, properties[property], descriptor)
+        }
     }
         
     }, writable: false, enumerable:false, configurable:false });
@@ -99,16 +101,16 @@ for(property in q) {
 
 // Returns {value: 2, writable:true, enumerable:true, configurable:true}
 
-console.log(Object.getOwnPropertyDescriptor(p, "x"));
+console.log(Object.getOwnPropertyDescriptor(q, "x"));
 
 
 
 // Returns {value: 1, writable:true, enumerable:false, configurable:true}
 
-console.log(Object.getOwnPropertyDescriptor(p, "z"));
+console.log(Object.getOwnPropertyDescriptor(q, "z"));
 
 
 
 // Returns {get, set:undefined, enumerable:true, configurable:true}
 
-console.log(Object.getOwnPropertyDescriptor(p, "r"));
+console.log(Object.getOwnPropertyDescriptor(q, "r"));
